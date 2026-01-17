@@ -80,13 +80,16 @@ function RecommendedCards() {
 
 function CatalogFilters() {
   return (
-    <Group justify="space-between" align="center" wrap="wrap">
-      <TextInput
-        placeholder="Search classes"
-        leftSection={<IconSearch size={16} stroke={1.5} />}
-        w={280}
-        radius="md"
-      />
+    <Stack gap="md">
+      <Group justify="space-between" align="center" wrap="wrap">
+        <TextInput
+          placeholder="Search classes"
+          leftSection={<IconSearch size={16} stroke={1.5} />}
+          w={280}
+          radius="md"
+        />
+        <SegmentedControl radius="md" data={["Popular", "Upcoming"]} />
+      </Group>
       <Group gap="xs" wrap="wrap">
         {[
           "All statuses",
@@ -107,8 +110,7 @@ function CatalogFilters() {
           </Button>
         ))}
       </Group>
-      <SegmentedControl radius="md" data={["Popular", "Upcoming"]} />
-    </Group>
+    </Stack>
   );
 }
 

@@ -108,9 +108,9 @@ function Dashboard() {
   return (
     <AppLayout activeItemId="dashboard">
       <Stack gap="xl">
-        <Grid gutter="xl">
-          <Grid.Col span={{ base: 12, xl: 9 }}>
-            <Card withBorder radius="lg" padding="xl" shadow="sm">
+        <Grid gutter="xl" align="stretch">
+          <Grid.Col span={{ base: 12, xl: 9 }} style={{ display: "flex" }}>
+            <Card withBorder radius="lg" padding="xl" shadow="sm" w="100%" h="100%">
               <Group justify="space-between" align="flex-start">
                 <Stack gap={4}>
                   <Group gap="xs">
@@ -143,43 +143,50 @@ function Dashboard() {
                 />
               </Group>
             </Card>
-            <Card withBorder radius="lg" padding="xl" mt="xl">
-              <Group justify="space-between" align="center">
-                <Group gap="xs">
-                  <IconBookmark size={20} color="#DE066A" />
-                  <Title order={5}>Saved for later</Title>
-                  <Badge radius="xl" color="gray" variant="light">
-                    0
-                  </Badge>
-                </Group>
-                <Button variant="subtle" size="xs">
-                  See all
-                </Button>
-              </Group>
-              <EmptySavedState />
-            </Card>
           </Grid.Col>
-          <Grid.Col span={{ base: 12, xl: 3 }}>
+          <Grid.Col span={{ base: 12, xl: 3 }} style={{ display: "flex" }}>
             <Card
               radius="lg"
               padding="xl"
-              style={{ background: "linear-gradient(145deg, #FFE2F2, #F7F2FF)" }}
+              style={{
+                background: "linear-gradient(145deg, #FFE2F2, #F7F2FF)",
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+              }}
+              h="100%"
             >
               <Group gap="xs">
                 <IconPlayerPlay size={20} color="#C2255C" />
                 <Title order={5}>Up Next</Title>
               </Group>
-              <Stack gap="sm" mt="md">
+              <Stack gap="sm" mt="md" style={{ flexGrow: 1 }} justify="space-between">
                 <Text size="sm" c="#1D1841">
                   Time to start your next learning adventure!
                 </Text>
-                <Button color="hone-pink" radius="xl">
+                <Button color="hone-pink" radius="xl" mt="auto">
                   Browse Classes
                 </Button>
               </Stack>
             </Card>
           </Grid.Col>
         </Grid>
+
+        <Card withBorder radius="lg" padding="xl">
+          <Group justify="space-between" align="center">
+            <Group gap="xs">
+              <IconBookmark size={20} color="#DE066A" />
+              <Title order={5}>Saved for later</Title>
+              <Badge radius="xl" color="gray" variant="light">
+                0
+              </Badge>
+            </Group>
+            <Button variant="subtle" size="xs">
+              See all
+            </Button>
+          </Group>
+          <EmptySavedState />
+        </Card>
 
         <Card withBorder radius="lg" padding="xl" shadow="sm">
           <Group justify="space-between" align="center" mb="lg">

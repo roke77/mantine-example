@@ -1,9 +1,9 @@
 import {
-  Badge,
   Button,
   Card,
   FileButton,
   Group,
+  SimpleGrid,
   Stack,
   Text,
   Textarea,
@@ -26,16 +26,25 @@ function ClassFinder() {
           AI Class finder
         </Text>
         <Text c="dimmed" ta="center">
-          Enter a scenario you need help with or upload a plan for custom class recommendations.
+          Enter a scenario you need help with or upload a plan for custom class
+          recommendations.
         </Text>
 
         <Group gap="sm">
-          <Button leftSection={<IconPrompt size={16} />} radius="xl" variant="default">
+          <Button
+            leftSection={<IconPrompt size={16} />}
+            radius="xl"
+            variant="default"
+          >
             Enter text
           </Button>
           <FileButton onChange={() => {}} accept="application/pdf">
             {(props) => (
-              <Button leftSection={<IconFileUpload size={16} />} radius="xl" {...props}>
+              <Button
+                leftSection={<IconFileUpload size={16} />}
+                radius="xl"
+                {...props}
+              >
                 Upload PDF
               </Button>
             )}
@@ -58,13 +67,13 @@ function ClassFinder() {
           Or use one of the examples below.
         </Text>
 
-        <Group gap="sm" justify="center" wrap="wrap">
+        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md" w="100%" maw={640}>
           {suggestionPrompts.map((prompt) => (
-            <Badge key={prompt} radius="md" variant="light" color="gray" px="md" py={12}>
-              {prompt}
-            </Badge>
+            <Card key={prompt} withBorder radius="lg" padding="md" ta="center">
+              <Text size="sm">{prompt}</Text>
+            </Card>
           ))}
-        </Group>
+        </SimpleGrid>
       </Stack>
     </AppLayout>
   );
