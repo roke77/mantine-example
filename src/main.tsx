@@ -5,11 +5,10 @@ import { ColorSchemeScript, MantineProvider, type MantineColorsTuple } from '@ma
 import '@mantine/core/styles.css'
 import '@mantine/dates/styles.css'
 import './index.css'
-import App from './App.tsx'
-import Demo from './Demo.tsx'
-import Catalog from './Catalog.tsx'
-import Activity from './Activity.tsx'
-import AiCoach from './AiCoach.tsx'
+import Demo from './pages/Demo.tsx'
+import Catalog from './pages/Catalog.tsx'
+import Activity from './pages/Activity.tsx'
+import AiCoach from './pages/AiCoach.tsx'
 
 const honePrimary: MantineColorsTuple = ['#f7f5ff', '#ece8ff', '#d9d1ff', '#c4bcff', '#988ef7', '#7367e1', '#5649c2', '#3d3298', '#251f6e', '#110758']
 const honePink: MantineColorsTuple = ['#fff0f6', '#ffe4ef', '#ffc6df', '#ffa7cd', '#ff85bb', '#ff65aa', '#f4468e', '#de266e', '#b91352', '#900739']
@@ -42,12 +41,10 @@ createRoot(document.getElementById('root')!).render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="/demo" replace />} />
-          <Route element={<App />}>
-            <Route path="/demo" element={<Demo />} />
-            <Route path="/catalog" element={<Catalog />} />
-            <Route path="/activity" element={<Activity />} />
-            <Route path="/ai-coach" element={<AiCoach />} />
-          </Route>
+          <Route path="/demo" element={<Demo />} />
+          <Route path="/catalog" element={<Catalog />} />
+          <Route path="/activity" element={<Activity />} />
+          <Route path="/ai-coach" element={<AiCoach />} />
         </Routes>
       </BrowserRouter>
     </MantineProvider>

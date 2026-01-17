@@ -1,12 +1,9 @@
-import { useNavigate } from "react-router-dom";
 import {
   AppShell,
-  Avatar,
   Badge,
   Button,
   Card,
   Group,
-  NavLink,
   SimpleGrid,
   Stack,
   Text,
@@ -17,19 +14,10 @@ import {
   IconArrowUp,
   IconPlus,
   IconSparkles,
-  IconUsers,
 } from "@tabler/icons-react";
+import Sidebar from "../components/Sidebar";
 
-const navItems = [
-  { label: "Dashboard", icon: IconUsers, to: "/demo" },
-  { label: "AI Coach", icon: IconUsers, active: true },
-  { label: "AI Sessions", icon: IconUsers },
-  { label: "Live Classes", icon: IconUsers, to: "/catalog" },
-  { label: "Class Finder", icon: IconUsers },
-  { label: "Activity", icon: IconUsers, to: "/activity" },
-];
-
-const prompts = [
+const PROMPTS = [
   "Craft helpful feedback",
   "Coach me through a challenge",
   "Improve my 1:1 agenda",
@@ -38,7 +26,7 @@ const prompts = [
   "Explore my career development",
 ];
 
-const recommendedSessions = [
+const RECOMMENDED_SESSIONS = [
   {
     title: "Give Feedback that Lands",
     type: "Lesson",
@@ -62,73 +50,33 @@ const recommendedSessions = [
   },
 ];
 
-const skills = [
+const SKILLS = [
   "Craft helpful feedback",
   "Improve my 1:1 agenda",
   "Manage a performance issue",
   "Write better performance reviews",
 ];
 
-function Sidebar() {
-  const navigate = useNavigate();
-
-  return (
-    <Stack h="100%" justify="space-between" p="md">
-      <Stack gap="lg">
-        <div>
-          <Title order={3}>Hone</Title>
-          <Group mt="md">
-            <Avatar
-              radius="xl"
-              src="https://placehold.co/48x48"
-              alt="Profile"
-            />
-            <div>
-              <Text fw={600}>Roque Cuello</Text>
-              <Text size="sm" c="dimmed">
-                Manager
-              </Text>
-            </div>
-          </Group>
-        </div>
-        <Stack gap="sm">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.label}
-              active={item.active}
-              label={item.label}
-              leftSection={<item.icon size={18} />}
-              variant="subtle"
-              style={{ borderRadius: 12 }}
-              onClick={item.to ? () => navigate(item.to) : undefined}
-            />
-          ))}
-        </Stack>
-      </Stack>
-      <Text size="xs" c="dimmed">
-        © Hone 2026
-      </Text>
-    </Stack>
-  );
-}
+const COACH_ACTIONS = [
+  { label: "New chat", icon: IconPlus },
+  { label: "New voice chat", icon: IconSparkles },
+  { label: "Personalize", icon: IconSparkles },
+] as const;
 
 function CoachActions() {
   return (
     <Card withBorder radius="lg" padding="lg">
       <Stack gap="md">
-        <Button variant="light" leftSection={<IconPlus size={16} />}>
-          New chat
-        </Button>
-        <Button variant="light" leftSection={<IconSparkles size={16} />}>
-          New voice chat
-        </Button>
-        <Button variant="light" leftSection={<IconSparkles size={16} />}>
-          Personalize
-        </Button>
+        {COACH_ACTIONS.map(({ label, icon: IconComponent }) => (
+          <Button key={label} variant="light" leftSection={<IconComponent size={16} />}>
+            {label}
+          </Button>
+        ))}
       </Stack>
     </Card>
   );
 }
+
 
 function PromptInput() {
   return (
@@ -152,7 +100,7 @@ function PromptInput() {
         </Button>
       </Group>
       <Group gap="xs" wrap="wrap">
-        {prompts.map((prompt) => (
+        {PROMPTS.map((prompt) => (
           <Button key={prompt} variant="default" radius="xl" size="xs">
             {prompt}
           </Button>
@@ -169,7 +117,7 @@ function SkillList() {
         Craft helpful feedback
       </Text>
       <Stack gap="xs">
-        {skills.map((skill) => (
+        {SKILLS.map((skill) => (
           <Group key={skill} gap="sm">
             <Badge color="hone-pink" variant="light">
               ✦
@@ -190,7 +138,7 @@ function RecommendedSessions() {
         <Button variant="subtle">See all</Button>
       </Group>
       <SimpleGrid cols={{ base: 1, md: 3 }} spacing="lg">
-        {recommendedSessions.map((session) => (
+        {RECOMMENDED_SESSIONS.map((session) => (
           <Card key={session.title} withBorder radius="lg" padding="lg">
             <Group gap="xs">
               <Badge color="hone-pink" variant="light">
@@ -221,7 +169,7 @@ function AiCoach() {
       padding="xl"
     >
       <AppShell.Navbar>
-        <Sidebar />
+        <Sidebar activeItemId="ai-coach" />
       </AppShell.Navbar>
       <AppShell.Aside>
         <Stack gap="lg">

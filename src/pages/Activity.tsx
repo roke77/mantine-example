@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import {
   ActionIcon,
   AppShell,
@@ -6,24 +5,14 @@ import {
   Badge,
   Card,
   Group,
-  NavLink,
   SegmentedControl,
   Stack,
   Text,
-  Title,
 } from "@mantine/core";
 import { IconDots, IconUsers } from "@tabler/icons-react";
+import Sidebar from "../components/Sidebar";
 
-const navItems = [
-  { label: "Dashboard", icon: IconUsers, to: "/demo" },
-  { label: "AI Coach", icon: IconUsers, to: "/ai-coach" },
-  { label: "AI Sessions", icon: IconUsers },
-  { label: "Live Classes", icon: IconUsers, to: "/catalog" },
-  { label: "Class Finder", icon: IconUsers },
-  { label: "Activity", icon: IconUsers, active: true },
-];
-
-const activityTabs = ["Upcoming", "Completed", "Missed", "Saved for later"];
+const ACTIVITY_TABS = ["Upcoming", "Completed", "Missed", "Saved for later"];
 
 const completedClasses = [
   {
@@ -67,54 +56,29 @@ const completedClasses = [
   },
 ];
 
-function Sidebar() {
-  const navigate = useNavigate();
-
+function ActivityTabs() {
   return (
-    <Stack h="100%" justify="space-between" p="md">
-      <Stack gap="lg">
-        <div>
-          <Title order={3}>Hone</Title>
-          <Group mt="md">
-            <Avatar
-              radius="xl"
-              src="https://placehold.co/48x48"
-              alt="Profile"
-            />
-            <div>
-              <Text fw={600}>Roque Cuello</Text>
-              <Text size="sm" c="dimmed">
-                Admin
-              </Text>
-            </div>
-          </Group>
-        </div>
-        <Stack gap="sm">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.label}
-              active={item.active}
-              label={item.label}
-              leftSection={<item.icon size={18} />}
-              variant="subtle"
-              style={{ borderRadius: 12 }}
-              onClick={item.to ? () => navigate(item.to) : undefined}
-            />
-          ))}
-        </Stack>
-      </Stack>
-      <Text size="xs" c="dimmed">
-        © Hone 2026
-      </Text>
-    </Stack>
+    <SegmentedControl
+      fullWidth
+      radius="md"
+      data={ACTIVITY_TABS}
+      value="Completed"
+      styles={{
+        root: { border: "none", background: "transparent" },
+        label: { padding: "12px 16px" },
+      }}
+    />
   );
 }
+
+type CompletedClass = (typeof completedClasses)[number];
 
 function CompletedCard({
   entry,
 }: {
-  entry: (typeof completedClasses)[number];
+  entry: CompletedClass;
 }) {
+
   return (
     <Card withBorder radius="lg" padding="lg">
       <Group justify="space-between" align="flex-start">
@@ -155,26 +119,12 @@ function CompletedCard({
   );
 }
 
-function ActivityTabs() {
-  return (
-    <SegmentedControl
-      fullWidth
-      radius="md"
-      data={activityTabs}
-      value="Completed"
-      styles={{
-        root: { border: "none", background: "transparent" },
-        label: { padding: "12px 16px" },
-      }}
-    />
-  );
-}
 
 function Activity() {
   return (
     <AppShell navbar={{ width: 260, breakpoint: "lg" }} padding="xl">
       <AppShell.Navbar>
-        <Sidebar />
+        <Sidebar activeItemId="activity" />
       </AppShell.Navbar>
       <AppShell.Main>
         <Stack gap="xl">

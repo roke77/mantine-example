@@ -1,14 +1,11 @@
-import { useNavigate } from "react-router-dom";
 import {
   AppShell,
-  Avatar,
   Badge,
   Box,
   Button,
   Card,
   Divider,
   Group,
-  NavLink,
   SegmentedControl,
   SimpleGrid,
   Stack,
@@ -17,15 +14,7 @@ import {
   Title,
 } from "@mantine/core";
 import { IconClock, IconSearch, IconUsers } from "@tabler/icons-react";
-
-const navItems = [
-  { label: "Dashboard", icon: IconUsers, to: "/demo" },
-  { label: "AI Coach", icon: IconUsers, to: "/ai-coach" },
-  { label: "AI Sessions", icon: IconUsers },
-  { label: "Live Classes", icon: IconUsers, active: true },
-  { label: "Class Finder", icon: IconUsers },
-  { label: "Activity", icon: IconUsers, to: "/activity" },
-];
+import Sidebar from "../components/Sidebar";
 
 const recommendedClasses = [
   {
@@ -47,78 +36,6 @@ const recommendedClasses = [
     upcomingLabel: "10 upcoming",
   },
 ];
-
-const classCatalog = [
-  {
-    id: 1,
-    dateLabel: "JAN 16",
-    weekday: "FRI",
-    title: "Utilize Your Strengths (Individual Version)",
-    time: "Fri, Jan 16 · 6:00 PM GMT+1",
-    duration: "60 Minutes",
-    coach: "Nicole Bliss",
-    summary:
-      "Discuss how to utilize your strengths effectively to deliver impact at work and drive a more fulfilling life and career.",
-    cta: "Register",
-  },
-  {
-    id: 2,
-    dateLabel: "JAN 16",
-    weekday: "FRI",
-    title: "Create a Culture of Belonging",
-    time: "Fri, Jan 16 · 10:00 PM GMT+1",
-    duration: "60 Minutes",
-    coach: "Hanadi Chehabeddine",
-    summary:
-      "Explore concrete actions that managers can take to foster psychological safety and belonging within hybrid teams.",
-    cta: "Register",
-  },
-];
-
-function Sidebar() {
-  const navigate = useNavigate();
-
-  return (
-    <Stack h="100%" justify="space-between" p="md">
-      <Stack gap="lg">
-        <div>
-          <Title order={3} c="#1D1841">
-            Hone
-          </Title>
-          <Group mt="md">
-            <Avatar
-              radius="xl"
-              src="https://placehold.co/48x48"
-              alt="Profile"
-            />
-            <div>
-              <Text fw={600}>Roque Cuello</Text>
-              <Text size="sm" c="dimmed">
-                Admin
-              </Text>
-            </div>
-          </Group>
-        </div>
-        <Stack gap="sm">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.label}
-              active={item.active}
-              label={item.label}
-              leftSection={<item.icon size={18} />}
-              variant="subtle"
-              style={{ borderRadius: 12 }}
-              onClick={item.to ? () => navigate(item.to) : undefined}
-            />
-          ))}
-        </Stack>
-      </Stack>
-      <Text size="xs" c="dimmed">
-        © Hone 2026
-      </Text>
-    </Stack>
-  );
-}
 
 function RecommendedCards() {
   return (
@@ -196,6 +113,33 @@ function CatalogFilters() {
   );
 }
 
+const classCatalog = [
+  {
+    id: 1,
+    dateLabel: "JAN 16",
+    weekday: "FRI",
+    title: "Utilize Your Strengths (Individual Version)",
+    time: "Fri, Jan 16 · 6:00 PM GMT+1",
+    duration: "60 Minutes",
+    coach: "Nicole Bliss",
+    summary:
+      "Discuss how to utilize your strengths effectively to deliver impact at work and drive a more fulfilling life and career.",
+    cta: "Register",
+  },
+  {
+    id: 2,
+    dateLabel: "JAN 16",
+    weekday: "FRI",
+    title: "Create a Culture of Belonging",
+    time: "Fri, Jan 16 · 10:00 PM GMT+1",
+    duration: "60 Minutes",
+    coach: "Hanadi Chehabeddine",
+    summary:
+      "Explore concrete actions that managers can take to foster psychological safety and belonging within hybrid teams.",
+    cta: "Register",
+  },
+];
+
 function CatalogList() {
   return (
     <Stack gap="lg">
@@ -265,7 +209,7 @@ function Catalog() {
   return (
     <AppShell navbar={{ width: 260, breakpoint: "lg" }} padding="xl">
       <AppShell.Navbar>
-        <Sidebar />
+        <Sidebar activeItemId="live-classes" />
       </AppShell.Navbar>
       <AppShell.Main>
         <Stack gap="xl">
