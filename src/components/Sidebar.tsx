@@ -63,6 +63,7 @@ function Sidebar({ activeItemId }: SidebarProps) {
             {...NAV_LINK_PROPS}
             active={activeItemId === "dashboard"}
             label="Dashboard"
+            onClick={() => navigate("/dashboard")}
           />
           <NavLink
             {...NAV_LINK_PROPS}
@@ -74,6 +75,7 @@ function Sidebar({ activeItemId }: SidebarProps) {
             {...NAV_LINK_PROPS}
             active={activeItemId === "ai-sessions"}
             label="AI Sessions"
+            onClick={() => navigate("/ai-sessions")}
           />
           <NavLink
             {...NAV_LINK_PROPS}
@@ -85,6 +87,7 @@ function Sidebar({ activeItemId }: SidebarProps) {
             {...NAV_LINK_PROPS}
             active={activeItemId === "class-finder"}
             label="Class Finder"
+            onClick={() => navigate("/class-finder")}
           />
           <NavLink
             {...NAV_LINK_PROPS}
