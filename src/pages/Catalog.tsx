@@ -1,5 +1,4 @@
 import {
-  AppShell,
   Badge,
   Box,
   Button,
@@ -14,7 +13,7 @@ import {
   Title,
 } from "@mantine/core";
 import { IconClock, IconSearch, IconUsers } from "@tabler/icons-react";
-import Sidebar from "../components/Sidebar";
+import AppLayout from "../components/AppLayout";
 
 const recommendedClasses = [
   {
@@ -207,19 +206,14 @@ function CatalogList() {
 
 function Catalog() {
   return (
-    <AppShell navbar={{ width: 260, breakpoint: "lg" }} padding="xl">
-      <AppShell.Navbar>
-        <Sidebar activeItemId="live-classes" />
-      </AppShell.Navbar>
-      <AppShell.Main>
-        <Stack gap="xl">
-          <RecommendedCards />
-          <CatalogFilters />
-          <Divider />
-          <CatalogList />
-        </Stack>
-      </AppShell.Main>
-    </AppShell>
+    <AppLayout activeItemId="live-classes">
+      <Stack gap="xl">
+        <RecommendedCards />
+        <CatalogFilters />
+        <Divider />
+        <CatalogList />
+      </Stack>
+    </AppLayout>
   );
 }
 

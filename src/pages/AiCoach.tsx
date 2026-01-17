@@ -1,21 +1,25 @@
 import {
-  AppShell,
   Badge,
   Button,
   Card,
+  Drawer,
   Group,
   SimpleGrid,
   Stack,
   Text,
   TextInput,
   Title,
+  useMantineTheme,
 } from "@mantine/core";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import {
   IconArrowUp,
+  IconMenu2,
   IconPlus,
   IconSparkles,
 } from "@tabler/icons-react";
-import Sidebar from "../components/Sidebar";
+import AppLayout from "../components/AppLayout";
+
 
 const PROMPTS = [
   "Craft helpful feedback",
@@ -162,28 +166,51 @@ function RecommendedSessions() {
 }
 
 function AiCoach() {
+  const theme = useMantineTheme();
+  const isDesktop = useMediaQuery(`(min-width: ${theme.breakpoints.lg})`);
+  const [asideOpened, { open: openAside, close: closeAside }] = useDisclosure(false);
+
+  const asideContent = (
+    <Stack gap="lg">
+      <CoachActions />
+      <SkillList />
+    </Stack>
+  );
+
   return (
-    <AppShell
-      navbar={{ width: 260, breakpoint: "lg" }}
-      aside={{ width: 260, breakpoint: "lg" }}
-      padding="xl"
+    <AppLayout
+      activeItemId="ai-coach"
+      headerRightSection={
+        !isDesktop && (
+          <Button
+            leftSection={<IconMenu2 size={16} />}
+            variant="default"
+            radius="xl"
+            onClick={openAside}
+          >
+            Coach tools
+          </Button>
+        )
+      }
     >
-      <AppShell.Navbar>
-        <Sidebar activeItemId="ai-coach" />
-      </AppShell.Navbar>
-      <AppShell.Aside>
-        <Stack gap="lg">
-          <CoachActions />
-          <SkillList />
-        </Stack>
-      </AppShell.Aside>
-      <AppShell.Main>
-        <Stack gap="xl">
+      <Group align="flex-start" gap="xl" wrap="wrap">
+        <Stack gap="xl" flex={1} miw={320}>
           <PromptInput />
           <RecommendedSessions />
         </Stack>
-      </AppShell.Main>
-    </AppShell>
+        {isDesktop && (
+          <Stack gap="lg" w={280}>
+            {asideContent}
+          </Stack>
+        )}
+      </Group>
+
+      {!isDesktop && (
+        <Drawer opened={asideOpened} onClose={closeAside} padding="xl" title="AI Coach tools">
+          {asideContent}
+        </Drawer>
+      )}
+    </AppLayout>
   );
 }
 

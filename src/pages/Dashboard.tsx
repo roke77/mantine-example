@@ -1,5 +1,4 @@
 import {
-  AppShell,
   Badge,
   Box,
   Button,
@@ -18,7 +17,7 @@ import {
   IconPlayerPlay,
   IconStars,
 } from "@tabler/icons-react";
-import Sidebar from "../components/Sidebar";
+import AppLayout from "../components/AppLayout";
 import tasksIllustration from "../assets/tasks-illustration.svg";
 
 const recommendedClasses = [
@@ -28,8 +27,7 @@ const recommendedClasses = [
     upcoming: 6,
     rating: 4.7,
     duration: "60 Minutes",
-    image:
-      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80",
+    gradient: "linear-gradient(135deg, #E7F0FF, #FFE8F6)",
   },
   {
     id: 2,
@@ -37,8 +35,7 @@ const recommendedClasses = [
     upcoming: 5,
     rating: 4.8,
     duration: "60 Minutes",
-    image:
-      "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=900&q=80",
+    gradient: "linear-gradient(135deg, #FFF0E1, #FFE0F2)",
   },
   {
     id: 3,
@@ -46,8 +43,7 @@ const recommendedClasses = [
     upcoming: 10,
     rating: 4.7,
     duration: "60 Minutes",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80",
+    gradient: "linear-gradient(135deg, #E6FFF4, #E7E3FF)",
   },
 ];
 
@@ -73,7 +69,14 @@ function RecommendedCard({
     <Card withBorder radius="lg" padding={0} key={entry.id} shadow="xs">
       <Box pos="relative">
         <Card.Section>
-          <Image src={entry.image} alt={entry.title} height={170} />
+          <Box
+            h={170}
+            style={{
+              background: entry.gradient,
+              borderTopLeftRadius: 16,
+              borderTopRightRadius: 16,
+            }}
+          />
         </Card.Section>
         <Badge
           pos="absolute"
@@ -103,104 +106,99 @@ function RecommendedCard({
 
 function Dashboard() {
   return (
-    <AppShell navbar={{ width: 260, breakpoint: "lg" }} padding="xl">
-      <AppShell.Navbar>
-        <Sidebar activeItemId="dashboard" />
-      </AppShell.Navbar>
-      <AppShell.Main>
-        <Stack gap="xl">
-          <Grid gutter="xl">
-            <Grid.Col span={{ base: 12, xl: 9 }}>
-              <Card withBorder radius="lg" padding="xl" shadow="sm">
-                <Group justify="space-between" align="flex-start">
-                  <Stack gap={4}>
-                    <Group gap="xs">
-                      <IconClockHour4 size={20} color="#DE066A" />
-                      <Title order={4}>Tasks</Title>
-                    </Group>
-                    <Text size="sm" c="dimmed">
-                      You're on top of it! Great job!
-                    </Text>
-                  </Stack>
-                  <Button variant="subtle" size="xs" color="dark">
-                    See all
-                  </Button>
-                </Group>
-                <Group justify="space-between" mt="xl" align="center" wrap="wrap">
-                  <Stack gap="xs" maw={420}>
-                    <Text fw={600} size="lg">
-                      No open tasks
-                    </Text>
-                    <Text size="sm" c="dimmed">
-                      When new assignments appear, they'll show up here with clear
-                      next steps.
-                    </Text>
-                  </Stack>
-                  <Image
-                    src={tasksIllustration}
-                    alt="Celebration illustration"
-                    w={220}
-                    miw={160}
-                  />
-                </Group>
-              </Card>
-              <Card withBorder radius="lg" padding="xl" mt="xl">
-                <Group justify="space-between" align="center">
+    <AppLayout activeItemId="dashboard">
+      <Stack gap="xl">
+        <Grid gutter="xl">
+          <Grid.Col span={{ base: 12, xl: 9 }}>
+            <Card withBorder radius="lg" padding="xl" shadow="sm">
+              <Group justify="space-between" align="flex-start">
+                <Stack gap={4}>
                   <Group gap="xs">
-                    <IconBookmark size={20} color="#DE066A" />
-                    <Title order={5}>Saved for later</Title>
-                    <Badge radius="xl" color="gray" variant="light">
-                      0
-                    </Badge>
+                    <IconClockHour4 size={20} color="#DE066A" />
+                    <Title order={4}>Tasks</Title>
                   </Group>
-                  <Button variant="subtle" size="xs">
-                    See all
-                  </Button>
-                </Group>
-                <EmptySavedState />
-              </Card>
-            </Grid.Col>
-            <Grid.Col span={{ base: 12, xl: 3 }}>
-              <Card
-                radius="lg"
-                padding="xl"
-                style={{ background: "linear-gradient(145deg, #FFE2F2, #F7F2FF)" }}
-              >
-                <Group gap="xs">
-                  <IconPlayerPlay size={20} color="#C2255C" />
-                  <Title order={5}>Up Next</Title>
-                </Group>
-                <Stack gap="sm" mt="md">
-                  <Text size="sm" c="#1D1841">
-                    Time to start your next learning adventure!
+                  <Text size="sm" c="dimmed">
+                    You're on top of it! Great job!
                   </Text>
-                  <Button color="hone-pink" radius="xl">
-                    Browse Classes
-                  </Button>
                 </Stack>
-              </Card>
-            </Grid.Col>
-          </Grid>
-
-          <Card withBorder radius="lg" padding="xl" shadow="sm">
-            <Group justify="space-between" align="center" mb="lg">
-              <Group gap="xs">
-                <IconStars size={20} color="#DE066A" />
-                <Title order={4}>Recommended classes</Title>
+                <Button variant="subtle" size="xs" color="dark">
+                  See all
+                </Button>
               </Group>
-              <Button variant="light" size="xs" radius="xl">
-                See all
-              </Button>
+              <Group justify="space-between" mt="xl" align="center" wrap="wrap">
+                <Stack gap="xs" maw={420}>
+                  <Text fw={600} size="lg">
+                    No open tasks
+                  </Text>
+                  <Text size="sm" c="dimmed">
+                    When new assignments appear, they'll show up here with clear
+                    next steps.
+                  </Text>
+                </Stack>
+                <Image
+                  src={tasksIllustration}
+                  alt="Celebration illustration"
+                  w={220}
+                  miw={160}
+                />
+              </Group>
+            </Card>
+            <Card withBorder radius="lg" padding="xl" mt="xl">
+              <Group justify="space-between" align="center">
+                <Group gap="xs">
+                  <IconBookmark size={20} color="#DE066A" />
+                  <Title order={5}>Saved for later</Title>
+                  <Badge radius="xl" color="gray" variant="light">
+                    0
+                  </Badge>
+                </Group>
+                <Button variant="subtle" size="xs">
+                  See all
+                </Button>
+              </Group>
+              <EmptySavedState />
+            </Card>
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, xl: 3 }}>
+            <Card
+              radius="lg"
+              padding="xl"
+              style={{ background: "linear-gradient(145deg, #FFE2F2, #F7F2FF)" }}
+            >
+              <Group gap="xs">
+                <IconPlayerPlay size={20} color="#C2255C" />
+                <Title order={5}>Up Next</Title>
+              </Group>
+              <Stack gap="sm" mt="md">
+                <Text size="sm" c="#1D1841">
+                  Time to start your next learning adventure!
+                </Text>
+                <Button color="hone-pink" radius="xl">
+                  Browse Classes
+                </Button>
+              </Stack>
+            </Card>
+          </Grid.Col>
+        </Grid>
+
+        <Card withBorder radius="lg" padding="xl" shadow="sm">
+          <Group justify="space-between" align="center" mb="lg">
+            <Group gap="xs">
+              <IconStars size={20} color="#DE066A" />
+              <Title order={4}>Recommended classes</Title>
             </Group>
-            <SimpleGrid cols={{ base: 1, md: 3 }} spacing="lg">
-              {recommendedClasses.map((entry) => (
-                <RecommendedCard key={entry.id} entry={entry} />
-              ))}
-            </SimpleGrid>
-          </Card>
-        </Stack>
-      </AppShell.Main>
-    </AppShell>
+            <Button variant="light" size="xs" radius="xl">
+              See all
+            </Button>
+          </Group>
+          <SimpleGrid cols={{ base: 1, md: 3 }} spacing="lg">
+            {recommendedClasses.map((entry) => (
+              <RecommendedCard key={entry.id} entry={entry} />
+            ))}
+          </SimpleGrid>
+        </Card>
+      </Stack>
+    </AppLayout>
   );
 }
 

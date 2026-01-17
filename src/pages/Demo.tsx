@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import {
   Anchor,
   AppShell,
-  Avatar,
   Badge,
   Box,
   Button,
@@ -59,14 +58,15 @@ const statCards = [
 ];
 
 const teamMembers = [
-  { name: "Maya Cooper", role: "Program Strategist", focus: "AI enablement" },
+  { name: "Maya Cooper", role: "Program Strategist", focus: "AI enablement", gradient: "linear-gradient(135deg, #FFE2F2, #E9EDFF)" },
   {
     name: "Jonah Patel",
     role: "Learning Designer",
     focus: "Hybrid facilitation",
+    gradient: "linear-gradient(135deg, #E8F7FF, #FFF2E1)",
   },
-  { name: "Emily Vargas", role: "Coach Ops Lead", focus: "Talent pipeline" },
-  { name: "Victor Yu", role: "Data Partner", focus: "Insights delivery" },
+  { name: "Emily Vargas", role: "Coach Ops Lead", focus: "Talent pipeline", gradient: "linear-gradient(135deg, #E7F0FF, #FFE8F6)" },
+  { name: "Victor Yu", role: "Data Partner", focus: "Insights delivery", gradient: "linear-gradient(135deg, #E7FFF4, #E8F0FF)" },
 ];
 
 const resourceRows = [
@@ -432,9 +432,13 @@ export function Demo() {
                 {teamMembers.map((member) => (
                   <Card key={member.name} padding="lg" radius="lg" withBorder>
                     <Group gap="sm">
-                      <Avatar
-                        radius="xl"
-                        src={`https://api.dicebear.com/7.x/initials/svg?seed=${member.name}`}
+                      <Box
+                        w={48}
+                        h={48}
+                        style={{
+                          borderRadius: "50%",
+                          background: member.gradient,
+                        }}
                       />
                       <div>
                         <Text fw={600}>{member.name}</Text>
@@ -448,6 +452,7 @@ export function Demo() {
                     </Text>
                   </Card>
                 ))}
+
               </SimpleGrid>
             </Card>
 
