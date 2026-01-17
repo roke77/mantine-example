@@ -1,5 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { Avatar, Group, NavLink, Stack, Text } from "@mantine/core";
+import {
+  Anchor,
+  Avatar,
+  Group,
+  NavLink,
+  Stack,
+  Text,
+  Title,
+} from "@mantine/core";
 import {
   IconDashboard,
   IconRobot,
@@ -23,6 +31,8 @@ const SIDEBAR_USER_INITIALS = "RC";
 
 export type SidebarProps = {
   activeItemId: SidebarNavItemId;
+  title: string;
+  navbarBreakpoint: string;
 };
 
 const NAV_LINK_BASE_PROPS = {
@@ -32,23 +42,32 @@ const NAV_LINK_BASE_PROPS = {
 
 const ICON_SIZE = 18;
 
-function Sidebar({ activeItemId }: SidebarProps) {
+function Sidebar({ activeItemId, title, navbarBreakpoint }: SidebarProps) {
   const navigate = useNavigate();
 
   return (
     <Stack h="100%" justify="space-between" p="md">
       <Stack gap="lg">
-        <Group>
-          <Avatar radius="xl" color="hone-pink">
-            {SIDEBAR_USER_INITIALS}
-          </Avatar>
-          <div>
-            <Text fw={600}>{SIDEBAR_USER_NAME}</Text>
-            <Text size="sm" c="dimmed">
-              {SIDEBAR_USER_ROLE}
-            </Text>
-          </div>
-        </Group>
+        <Stack gap="sm">
+          <Anchor
+            onClick={() => navigate("/demo")}
+            underline="never"
+            visibleFrom={navbarBreakpoint}
+          >
+            <Title order={3}>{title}</Title>
+          </Anchor>
+          <Group>
+            <Avatar radius="xl" color="hone-pink">
+              {SIDEBAR_USER_INITIALS}
+            </Avatar>
+            <div>
+              <Text fw={600}>{SIDEBAR_USER_NAME}</Text>
+              <Text size="sm" c="dimmed">
+                {SIDEBAR_USER_ROLE}
+              </Text>
+            </div>
+          </Group>
+        </Stack>
         <Stack gap="sm">
           <NavLink
             {...NAV_LINK_BASE_PROPS}
