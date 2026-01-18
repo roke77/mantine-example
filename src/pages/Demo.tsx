@@ -12,6 +12,7 @@ import {
   Divider,
   Group,
   List,
+  Modal,
   NumberInput,
   Progress,
   ScrollArea,
@@ -109,6 +110,21 @@ const carouselSlides = [
     copy: "Use Hone analytics to prove impact and capture sentiment.",
     cta: "View benchmarks",
   },
+  {
+    title: "Peer learning networks",
+    copy: "Foster knowledge sharing with structured social learning circles.",
+    cta: "Join a network",
+  },
+  {
+    title: "Leadership essentials",
+    copy: "Master the core skills needed to lead high-performing teams.",
+    cta: "Start journey",
+  },
+  {
+    title: "Data-driven insights",
+    copy: "Measure engagement and skill growth with real-time dashboards.",
+    cta: "Review data",
+  },
 ];
 
 export function Demo() {
@@ -117,6 +133,9 @@ export function Demo() {
   const [teamSize, setTeamSize] = useState(6);
   const [kickoff, setKickoff] = useState<Date | null>(null);
   const [opened, { toggle }] = useDisclosure(true);
+  const [modalOpened, { open: openModal, close: closeModal }] = useDisclosure(false);
+  const [rosterOpened, { open: openRoster, close: closeRoster }] = useDisclosure(false);
+  const [surpriseOpened, { open: openSurprise, close: closeSurprise }] = useDisclosure(false);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
 
   const handleKickoffChange = (value: string | null) => {
@@ -424,6 +443,7 @@ export function Demo() {
                   variant="light"
                   radius="md"
                   rightSection={<IconArrowUpRight size={16} />}
+                  onClick={openRoster}
                 >
                   Manage roster
                 </Button>
@@ -594,6 +614,7 @@ export function Demo() {
                 <Button
                   variant="subtle"
                   rightSection={<IconSparkles size={16} />}
+                  onClick={openSurprise}
                 >
                   Surprise me
                 </Button>
@@ -626,6 +647,30 @@ export function Demo() {
             </Card>
 
             <Card padding="xl" radius="xl" withBorder>
+              <Group justify="space-between" mb="md">
+                <div>
+                  <Title order={4}>Interactive overlays</Title>
+                  <Text size="sm" c="dimmed">
+                    Mantine Modal example with Hone-inspired styling
+                  </Text>
+                </div>
+                <Button
+                  onClick={openModal}
+                  variant="outline"
+                  color="hone-primary"
+                  radius="md"
+                >
+                  View session preview
+                </Button>
+              </Group>
+              <Text size="sm">
+                Modals are perfect for focused tasks like session details,
+                feedback forms, or enrollment confirmations without losing
+                context.
+              </Text>
+            </Card>
+
+            <Card padding="xl" radius="xl" withBorder>
               <Group justify="space-between" mb="sm">
                 <Title order={4}>Creative inspiration drawer</Title>
                 <IconPhoto size={20} color="#DE066A" />
@@ -640,6 +685,148 @@ export function Demo() {
           </Stack>
         </Container>
       </AppShell.Main>
+
+      <Modal
+        opened={modalOpened}
+        onClose={closeModal}
+        title={
+          <Text fw={700} size="lg">
+            Upcoming Session: Inclusive Leadership
+          </Text>
+        }
+        centered
+        radius="lg"
+        size="lg"
+        overlayProps={{
+          backgroundOpacity: 0.55,
+          blur: 3,
+        }}
+      >
+        <Stack gap="md">
+          <Badge color="hone-pink" variant="light" size="lg">
+            Oct 24 • 10:00 AM - 11:30 AM PST
+          </Badge>
+
+          <Text size="sm" c="#4f527a">
+            This session explores practical frameworks for building high-trust
+            teams. We'll cover active listening, psychological safety, and
+            mitigating unconscious bias in decision-making.
+          </Text>
+
+          <Divider label="Session Highlights" labelPosition="center" />
+
+          <List
+            spacing="sm"
+            size="sm"
+            center
+            icon={
+              <Box
+                w={8}
+                h={8}
+                bg="hone-primary"
+                style={{ borderRadius: 999 }}
+              />
+            }
+          >
+            <List.Item>Interactive breakout rooms for peer practice</List.Item>
+            <List.Item>Live Q&A with Senior Coach Nicole Bliss</List.Item>
+            <List.Item>Downloadable "Inclusion Playbook" for managers</List.Item>
+          </List>
+
+          <Group justify="flex-end" mt="xl">
+            <Button variant="subtle" color="gray" onClick={closeModal}>
+              Maybe later
+            </Button>
+            <Button
+              variant="gradient"
+              gradient={accentGradient}
+              radius="md"
+              onClick={closeModal}
+            >
+              Add to calendar
+            </Button>
+          </Group>
+        </Stack>
+      </Modal>
+
+      <Modal
+        opened={rosterOpened}
+        onClose={closeRoster}
+        title={<Text fw={700}>Manage Coaching Roster</Text>}
+        size="xl"
+        radius="lg"
+      >
+        <Stack gap="md">
+          <Text size="sm" c="dimmed">
+            Update and manage your team of world-class coaches and facilitators.
+          </Text>
+          <Table striped verticalSpacing="sm">
+            <Table.Thead>
+              <Table.Tr>
+                <Table.Th>Name</Table.Th>
+                <Table.Th>Specialization</Table.Th>
+                <Table.Th>Availability</Table.Th>
+                <Table.Th>Action</Table.Th>
+              </Table.Tr>
+            </Table.Thead>
+            <Table.Tbody>
+              {teamMembers.map((member) => (
+                <Table.Tr key={member.name}>
+                  <Table.Td>
+                    <Group gap="xs">
+                      <Box
+                        w={24}
+                        h={24}
+                        style={{ borderRadius: "50%", background: member.gradient }}
+                      />
+                      <Text size="sm" fw={500}>{member.name}</Text>
+                    </Group>
+                  </Table.Td>
+                  <Table.Td><Text size="xs">{member.focus}</Text></Table.Td>
+                  <Table.Td><Badge color="green" variant="light" size="xs">Available</Badge></Table.Td>
+                  <Table.Td>
+                    <Button variant="subtle" size="compact-xs">Edit</Button>
+                  </Table.Td>
+                </Table.Tr>
+              ))}
+            </Table.Tbody>
+          </Table>
+          <Button fullWidth variant="light" onClick={closeRoster}>Close</Button>
+        </Stack>
+      </Modal>
+
+      <Modal
+        opened={surpriseOpened}
+        onClose={closeSurprise}
+        title={<Text fw={700}>Daily Inspiration ✨</Text>}
+        centered
+        radius="lg"
+      >
+        <Stack align="center" gap="lg" py="xl">
+          <Box
+            p="xl"
+            style={{
+              background: "rgba(255, 68, 118, 0.05)",
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            <IconSparkles size={48} color="#FF4476" />
+          </Box>
+          <Stack align="center" gap="xs">
+            <Text fw={600} size="xl" ta="center">"Growth begins at the edge of comfort."</Text>
+            <Text size="sm" c="dimmed" ta="center">
+              Today's nudge: Reach out to one team member and ask for feedback on a recent project. 
+              Small loops create huge impact.
+            </Text>
+          </Stack>
+          <Button variant="gradient" gradient={accentGradient} onClick={closeSurprise}>
+            Got it!
+          </Button>
+        </Stack>
+      </Modal>
     </AppShell>
   );
 }
