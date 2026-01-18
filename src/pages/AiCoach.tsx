@@ -2,24 +2,16 @@ import {
   Badge,
   Button,
   Card,
-  Drawer,
+  Container,
   Group,
   SimpleGrid,
   Stack,
   Text,
   TextInput,
   Title,
-  useMantineTheme,
 } from "@mantine/core";
-import { useDisclosure, useMediaQuery } from "@mantine/hooks";
-import {
-  IconArrowUp,
-  IconMenu2,
-  IconPlus,
-  IconSparkles,
-} from "@tabler/icons-react";
+import { IconArrowUp, IconSparkles } from "@tabler/icons-react";
 import AppLayout from "../components/AppLayout";
-
 
 const PROMPTS = [
   "Craft helpful feedback",
@@ -54,34 +46,6 @@ const RECOMMENDED_SESSIONS = [
   },
 ];
 
-const SKILLS = [
-  "Craft helpful feedback",
-  "Improve my 1:1 agenda",
-  "Manage a performance issue",
-  "Write better performance reviews",
-];
-
-const COACH_ACTIONS = [
-  { label: "New chat", icon: IconPlus },
-  { label: "New voice chat", icon: IconSparkles },
-  { label: "Personalize", icon: IconSparkles },
-] as const;
-
-function CoachActions() {
-  return (
-    <Card withBorder radius="lg" padding="lg">
-      <Stack gap="md">
-        {COACH_ACTIONS.map(({ label, icon: IconComponent }) => (
-          <Button key={label} variant="light" leftSection={<IconComponent size={16} />}>
-            {label}
-          </Button>
-        ))}
-      </Stack>
-    </Card>
-  );
-}
-
-
 function PromptInput() {
   return (
     <Stack gap="md">
@@ -103,7 +67,7 @@ function PromptInput() {
           <IconSparkles size={16} />
         </Button>
       </Group>
-      <Group gap="xs" wrap="wrap">
+      <Group gap="xs" wrap="wrap" justify="center">
         {PROMPTS.map((prompt) => (
           <Button key={prompt} variant="default" radius="xl" size="xs">
             {prompt}
@@ -114,33 +78,12 @@ function PromptInput() {
   );
 }
 
-function SkillList() {
-  return (
-    <Stack gap="xs">
-      <Text fw={500} c="dimmed">
-        Craft helpful feedback
-      </Text>
-      <Stack gap="xs">
-        {SKILLS.map((skill) => (
-          <Group key={skill} gap="sm">
-            <Badge color="hone-pink" variant="light">
-              ✦
-            </Badge>
-            <Text>{skill}</Text>
-          </Group>
-        ))}
-      </Stack>
-    </Stack>
-  );
-}
-
 function RecommendedSessions() {
   return (
     <Stack gap="sm">
-      <Group justify="space-between">
-        <Title order={4}>Recommended AI Sessions</Title>
-        <Button variant="subtle">See all</Button>
-      </Group>
+      <Title order={4} ta="center">
+        Recommended AI Sessions
+      </Title>
       <SimpleGrid cols={{ base: 1, md: 3 }} spacing="lg">
         {RECOMMENDED_SESSIONS.map((session) => (
           <Card key={session.title} withBorder radius="lg" padding="lg">
@@ -161,55 +104,22 @@ function RecommendedSessions() {
           </Card>
         ))}
       </SimpleGrid>
+      <Group justify="center">
+        <Button variant="subtle">See all</Button>
+      </Group>
     </Stack>
   );
 }
 
 function AiCoach() {
-  const theme = useMantineTheme();
-  const isDesktop = useMediaQuery(`(min-width: ${theme.breakpoints.lg})`);
-  const [asideOpened, { open: openAside, close: closeAside }] = useDisclosure(false);
-
-  const asideContent = (
-    <Stack gap="lg">
-      <CoachActions />
-      <SkillList />
-    </Stack>
-  );
-
   return (
-    <AppLayout
-      activeItemId="ai-coach"
-      headerRightSection={
-        !isDesktop && (
-          <Button
-            leftSection={<IconMenu2 size={16} />}
-            variant="default"
-            radius="xl"
-            onClick={openAside}
-          >
-            Coach tools
-          </Button>
-        )
-      }
-    >
-      <Group align="flex-start" gap="xl" wrap="wrap">
-        <Stack gap="xl" flex={1} miw={320}>
+    <AppLayout activeItemId="ai-coach">
+      <Container size="sm">
+        <Stack gap="xl">
           <PromptInput />
           <RecommendedSessions />
         </Stack>
-        {isDesktop && (
-          <Stack gap="lg" w={280}>
-            {asideContent}
-          </Stack>
-        )}
-      </Group>
-
-      {!isDesktop && (
-        <Drawer opened={asideOpened} onClose={closeAside} padding="xl" title="AI Coach tools">
-          {asideContent}
-        </Drawer>
-      )}
+      </Container>
     </AppLayout>
   );
 }
