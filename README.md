@@ -11,7 +11,7 @@ A Hone-inspired React + TypeScript + Vite playground that showcases a variety of
 
 ```bash
 # 1. Clone the repository
- git clone <YOUR-REPO-URL> mantine-example
+ git clone https://github.com/roke77/mantine-example
  cd mantine-example
 
 # 2. Install dependencies
@@ -32,8 +32,8 @@ A Hone-inspired React + TypeScript + Vite playground that showcases a variety of
 ## Project Highlights
 
 - Mantine theme customized with a Hone-style palette and typography.
-- Demo page featuring planners, statistics, dynamic cards, tables, forms, dropzone uploads, and carousel highlights.
+- Demo page featuring planners, statistics, dynamic cards, tables, forms, dropzone uploads, carousel highlights, and multiple Mantine Modal flows (session preview, roster management, inspiration drawer).
 - Catalog and Activity routes replicating real-world UI layouts.
-- AI Coach route with prompt chips, recommended sessions, and sidebar helpers.
+- AI Coach route refreshed with streamlined prompt input and curated recommended sessions for fast coaching prompts.
 
 Feel free to adapt components, tweak the theme, or swap data for your own use cases.
